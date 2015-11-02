@@ -12,5 +12,6 @@ class ShaderHelper
 		string loadTextFile(const char* file);
 		GLuint loadShader(const char* file, GLenum shaderType);
 		GLuint loadShaderProgram(const char* vertexFile, const char* fragmentFile);
+		void setShaderColor(GLuint program, const char* name, float red, float green, float blue);
 	private:
 };

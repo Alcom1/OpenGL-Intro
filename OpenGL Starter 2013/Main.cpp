@@ -24,7 +24,7 @@ void init()
 	GLuint program = shaderHelper.loadShaderProgram("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
 	if (program != 0)
 	{
-		cout << "PROGRAM: " << program << endl;
+		shaderHelper.setShaderColor(program, "color", 0.4f, 1.0f, 1.0f);
 		glUseProgram(program);
 	}
 

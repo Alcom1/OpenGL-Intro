@@ -119,3 +119,9 @@ GLuint ShaderHelper::loadShaderProgram(const char* vertexFile, const char* fragm
 
 	return program;
 }
+
+void ShaderHelper::setShaderColor(GLuint program, const char* name, float red, float green, float blue)
+{
+	glGetUniformLocation(program, name);
+	glProgramUniform4f(program, 0, red, green, blue, 1.0f);
+}
