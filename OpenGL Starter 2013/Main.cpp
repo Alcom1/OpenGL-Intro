@@ -1,12 +1,13 @@
 #include <iostream>
 #include <GL/glew.h>		//GLEW.
 #include <GLFW/glfw3.h>		//GLFW manages windows and user input.
+#include "ShaderHelpers.h"
 
 //Global Variables
 GLuint indexVAO;								//Index for vertex array object.
 GLuint indexVBO;								//Index for vertex buffer object.
 const GLsizei countVertex = 3;					//Number of verticies
-const GLsizei countComponent = countVertex * 2;	//Number of vertex components.
+const GLsizei countComponent = countVertex * 2;	//Number of vertex components.y
 
 //Initialization
 void init()
@@ -17,6 +18,15 @@ void init()
 		(105.0f / 255.0f),
 		(171.0f / 255.0f),
 		0.0f);
+
+	//Shaders
+	ShaderHelper shaderHelper;
+	GLuint program = shaderHelper.loadShaderProgram("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
+	if (program != 0)
+	{
+		cout << "PROGRAM: " << program << endl;
+		glUseProgram(program);
+	}
 
 	//VAO
 	glGenVertexArrays(1, &indexVAO);		//Generate a vertex array object.
@@ -52,13 +62,13 @@ void init()
 //Update
 void update()
 {
-	std::cout << "update!" << std::endl;	//Debug print update.
+	//std::cout << "update!" << std::endl;	//Debug print update.
 }
 
 //Draw
 void draw()
 {
-	std::cout << "draw" << std::endl;		//Debug print draw.
+	//std::cout << "draw" << std::endl;		//Debug print draw.
 	glClear(GL_COLOR_BUFFER_BIT);			//Clear the screen.
 
 	glDrawArrays(
