@@ -7,7 +7,7 @@
 GLuint indexVAO;								//Index for vertex array object.
 GLuint indexVBO;								//Index for vertex buffer object.
 const GLsizei countVertex = 3;					//Number of verticies
-const GLsizei countComponent = countVertex * 2;	//Number of vertex components.y
+const GLsizei countComponent = countVertex * 5;	//Number of vertex components.y
 
 //Initialization
 void init()
@@ -37,7 +37,10 @@ void init()
 	glBindBuffer(GL_ARRAY_BUFFER, indexVBO);	//Bind the vertex buffer object as the active object.
 
 	//Array of verticies
-	GLfloat verticies[countComponent] = { 0.5f, 0.6f, 0.4f, -0.7f, -0.8f, -0.2f };
+	GLfloat verticies[countComponent] = {
+		0.5f, 0.6f, 0.4f, 0.4f, 1.0f,
+		0.4f, -0.7f, 0.4f, 1.0f, 0.4f,
+		-0.8f, -0.2f, 1.0f, 0.4f, 0.4f};
 
 	//Copy data into buffer
 	glBufferData(
@@ -46,17 +49,27 @@ void init()
 		verticies,			//Data to be copied
 		GL_STATIC_DRAW);	//Do not change the data. Optimization for static draws.
 
-	//Describe the layout of the data being copied to the buffer.
+	//Describe the layout of the POSITION data being copied to the buffer.
 	glVertexAttribPointer(
-		0,					//Attribute index
-		2,					//Number of spacial components
-		GL_FLOAT,			//Data type
-		GL_FALSE,			//If normalized
-		0,					//Bytes between attributes.
-		0);					//Byte offset to this attribute.
+		0,						//Attribute index
+		2,						//Number of spacial components
+		GL_FLOAT,				//Data type
+		GL_FALSE,				//If normalized
+		sizeof(GL_FLOAT) * 5,	//Bytes between attributes.
+		0);						//Byte offset to this attribute.
 
-	//Enable the created attribute.
+	//Describe the layout of the COLOR data being copied to the buffer.
+	glVertexAttribPointer(
+		1,						//Attribute index
+		3,						//Number of spacial components
+		GL_FLOAT,				//Data type
+		GL_FALSE,				//If normalized
+		sizeof(GL_FLOAT) * 5,	//Bytes between attributes.
+		(void*)(sizeof(GL_FLOAT) * 2));	//Byte offset to this attribute.
+
+	//Enable the created attributes.
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 }
 
 //Update
